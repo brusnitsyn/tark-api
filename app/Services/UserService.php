@@ -41,8 +41,9 @@ class UserService
         $credentials['password'] = $data->password;
 
         if (Auth::attempt($credentials)) {
+            $user = auth()->user();
             return [
-                'message' => 'Успешный вход.'
+                'user' => $user,
             ];
         } else {
             throw ValidationException::withMessages([
