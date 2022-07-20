@@ -28,7 +28,7 @@ class UserService
         return [
             'user' => $user,
             'token' => $accessToken,
-        ];;
+        ];
     }
 
     public function loginWithEmail(UserData $data)

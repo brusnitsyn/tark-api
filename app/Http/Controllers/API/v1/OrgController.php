@@ -1,8 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\v1;
 
-use App\Models\org;
+use App\Data\OrgData;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Org\OrgStoreRequest;
+use App\Http\Resources\Org\OrgResource;
+use App\Models\Org;
+use App\Services\OrgService;
 use Illuminate\Http\Request;
 
 class OrgController extends Controller
@@ -14,18 +19,25 @@ class OrgController extends Controller
      */
     public function index()
     {
-        //
+        $orgs = Org::all();
+
+        return OrgResource::collection($orgs);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Org\OrgStoreRequest  $request
+     * @param  \App\Services\OrgService  $service
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OrgStoreRequest $request, OrgService $service)
     {
-        //
+        $data = OrgData::fromRequest($request);
+
+        $org = $service->store($data);
+
+        return new OrgResource($org);
     }
 
     /**
@@ -34,7 +46,7 @@ class OrgController extends Controller
      * @param  \App\Models\org  $org
      * @return \Illuminate\Http\Response
      */
-    public function show(org $org)
+    public function show(Org $org)
     {
         //
     }
@@ -46,7 +58,7 @@ class OrgController extends Controller
      * @param  \App\Models\org  $org
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, org $org)
+    public function update(Request $request, Org $org)
     {
         //
     }

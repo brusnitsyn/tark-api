@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\API\v1\AuthController;
+use App\Http\Controllers\API\v1\OrgController;
+use App\Http\Controllers\API\v1\OrgTypeController;
 use App\Http\Controllers\VerifyEmailController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -35,3 +37,8 @@ Route::prefix('auth')->group(function () {
     Route::post('login-email', [AuthController::class, 'loginWithEmail']);
     Route::post('register', [AuthController::class, 'register']);
 });
+
+Route::apiResources([
+    'org' => OrgController::class,
+    'org-types' => OrgTypeController::class,
+]);

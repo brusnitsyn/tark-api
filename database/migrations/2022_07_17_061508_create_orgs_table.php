@@ -18,9 +18,15 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('inn');
-            $table->string('orgn');
-            $table->string('desc');
+            $table->string('ogrn')->nullable();
+            $table->string('desc')->nullable();
             $table->string('kpp');
+            $table->string('email')->nullable();
+            $table->string('call')->nullable();
+            $table->string('bank_bik')->nullable();
+            $table->string('bank_name')->nullable();
+            $table->string('bank_ks')->nullable();
+            $table->string('bank_rs')->nullable();
             $table->foreignId('type_id')->references('id')->on('org_types')->onDelete('cascade');
             $table->timestamps();
         });

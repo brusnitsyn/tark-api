@@ -13,9 +13,15 @@ class Org extends Model
         'name',
         'slug',
         'inn',
-        'orgn',
+        'ogrn',
         'desc',
         'kpp',
+        'email',
+        'call',
+        'bank_bik',
+        'bank_name',
+        'bank_ks',
+        'bank_rs',
         'type_id',
     ];
 
@@ -25,5 +31,10 @@ class Org extends Model
     public function attachments()
     {
         return $this->morphMany('App\Models\Attachment', 'attachmentable');
+    }
+
+    public function type()
+    {
+        return $this->hasOne(OrgType::class, 'id', 'type_id');
     }
 }

@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\v1;
 
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Org\OrgTypeResource;
 use App\Models\OrgType;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,9 @@ class OrgTypeController extends Controller
      */
     public function index()
     {
-        //
+        $orgTypes = OrgType::all();
+
+        return OrgTypeResource::collection($orgTypes);
     }
 
     /**
