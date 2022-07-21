@@ -19,7 +19,7 @@ final class OrgData extends ObjectData
     public ?string $bank_name;
     public ?string $bank_ks;
     public ?string $bank_rs;
-    public string $type_id;
+    public int $type_id;
 
     public static function fromRequest(
         Request $request

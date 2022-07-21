@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Org;
 
+use App\Http\Resources\User\UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class OrgResource extends JsonResource
@@ -21,6 +22,7 @@ class OrgResource extends JsonResource
             'inn' => $this->inn,
             'kpp' => $this->kpp,
             'type' => OrgTypeResource::make($this->type)->name,
+            'creator' => UserResource::make($this->creator),
             'slug' => $this->slug,
 
             // No Required

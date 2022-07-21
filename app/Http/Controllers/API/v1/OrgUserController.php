@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\v1;
 
+use App\Http\Controllers\Controller;
+use App\Http\Resources\Org\OrgUserResource;
 use App\Models\OrgUser;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,9 @@ class OrgUserController extends Controller
      */
     public function index()
     {
-        //
+        $orgUsers = OrgUser::all();
+
+        return OrgUserResource::collection($orgUsers);
     }
 
     /**

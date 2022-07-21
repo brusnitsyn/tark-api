@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('bank_name')->nullable();
             $table->string('bank_ks')->nullable();
             $table->string('bank_rs')->nullable();
+            $table->foreignId('creator_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('type_id')->references('id')->on('org_types')->onDelete('cascade');
             $table->timestamps();
         });

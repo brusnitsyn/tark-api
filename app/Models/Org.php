@@ -22,6 +22,7 @@ class Org extends Model
         'bank_name',
         'bank_ks',
         'bank_rs',
+        'creator_id',
         'type_id',
     ];
 
@@ -36,5 +37,10 @@ class Org extends Model
     public function type()
     {
         return $this->hasOne(OrgType::class, 'id', 'type_id');
+    }
+
+    public function creator()
+    {
+        return $this->hasOne(User::class, 'id', 'creator_id');
     }
 }

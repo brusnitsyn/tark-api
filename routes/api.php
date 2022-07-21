@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\v1\AuthController;
 use App\Http\Controllers\API\v1\OrgController;
 use App\Http\Controllers\API\v1\OrgTypeController;
+use App\Http\Controllers\API\v1\OrgUserController;
 use App\Http\Controllers\VerifyEmailController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -41,4 +42,5 @@ Route::prefix('auth')->group(function () {
 Route::apiResources([
     'org' => OrgController::class,
     'org-types' => OrgTypeController::class,
+    'org-users' => OrgUserController::class,
 ]);

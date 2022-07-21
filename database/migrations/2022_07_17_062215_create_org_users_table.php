@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('org_users', function (Blueprint $table) {
             $table->id();
+            $table->string('user_job_title')->nullable();
             $table->foreignId('org_id')->references('id')->on('orgs')->onDelete('cascade');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
