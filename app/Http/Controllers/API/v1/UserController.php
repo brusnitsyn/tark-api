@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Users\UserRegisterRequest;
 use App\Http\Requests\Users\UserStoreRequest;
 use App\Http\Resources\User\UserResource;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -18,21 +20,22 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+        return UserResource::collection($users);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\UserStoreRequest  $request
+     * @param  \App\Http\Requests\Users\UserRegisterRequest  $request
      * @param  \App\Services\UserService  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserStoreRequest $request, UserService $service)
+    public function store(UserRegisterRequest $request, UserService $service)
     {
         $data = $request->validated();
 
-        $createdUser = $service->store($data);
+        $createdUser = $service->register($data);
 
         return new UserResource($createdUser);
     }
@@ -45,7 +48,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        $user = User::whereId($user->id)->with(['org'])->first();
+        return new UserResource($user);
     }
 
     /**

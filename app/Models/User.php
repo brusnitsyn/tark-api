@@ -58,4 +58,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->morphMany('App\Models\UserFavorite', 'favoriteable');
     }
+
+    /**
+     * Получить организацию пользователя.
+     */
+    public function org()
+    {
+        return $this->hasOneThrough(Org::class, OrgUser::class, 'user_id', 'id');
+    }
 }

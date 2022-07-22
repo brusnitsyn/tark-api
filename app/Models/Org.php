@@ -43,4 +43,9 @@ class Org extends Model
     {
         return $this->hasOne(User::class, 'id', 'creator_id');
     }
+
+    public function users()
+    {
+        return $this->hasManyThrough(User::class, OrgUser::class, 'org_id', 'id', 'id', 'user_id');
+    }
 }

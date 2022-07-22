@@ -22,8 +22,9 @@ class OrgResource extends JsonResource
             'inn' => $this->inn,
             'kpp' => $this->kpp,
             'type' => OrgTypeResource::make($this->type)->name,
-            'creator' => UserResource::make($this->creator),
+            'creator' => $this->when($this->relationLoaded('creator'), UserResource::make($this->creator)),
             'slug' => $this->slug,
+            'users' => $this->when($this->relationLoaded('users'), UserResource::collection($this->users)),
 
             // No Required
             'ogrn' => $this->when(!is_null($this->ogrn), $this->ogrn),

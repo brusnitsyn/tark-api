@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Org\OrgUserResource;
 use App\Models\OrgUser;
+use App\Services\OrgService;
 use Illuminate\Http\Request;
 
 class OrgUserController extends Controller
@@ -36,11 +37,12 @@ class OrgUserController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\OrgUser  $orgUser
+     * @param  \App\Services\OrgService  $service
      * @return \Illuminate\Http\Response
      */
-    public function show(OrgUser $orgUser)
+    public function show(OrgUser $orgUser, OrgService $service)
     {
-        //
+
     }
 
     /**

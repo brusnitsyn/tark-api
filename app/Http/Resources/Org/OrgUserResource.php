@@ -16,8 +16,9 @@ class OrgUserResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'job_title' => $this->user_job_title,
-            'user' => UserResource::make($this->user),
+            'id' => $this->id,
+            'job_title' => $this->when(!is_null($this->user_job_title), $this->user_job_title),
+            //'user' => UserResource::make($this->user),
             'org' => OrgResource::make($this->org),
         ];
     }

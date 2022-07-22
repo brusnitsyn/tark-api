@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\User;
 
+use App\Http\Resources\Org\OrgResource;
+use App\Http\Resources\Org\OrgUserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -19,6 +21,7 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'call' => $this->call,
+            'org' => $this->when($this->relationLoaded('org'), OrgResource::make($this->org)),
         ];
     }
 }

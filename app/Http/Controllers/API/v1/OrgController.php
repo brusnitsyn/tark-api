@@ -7,8 +7,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Org\OrgStoreRequest;
 use App\Http\Resources\Org\OrgResource;
 use App\Models\Org;
+use App\Models\User;
 use App\Services\OrgService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrgController extends Controller
 {
@@ -19,10 +21,21 @@ class OrgController extends Controller
      */
     public function index()
     {
-        $orgs = Org::all();
-
+        $orgs = Org::with(['creator', 'users'])->get();
         return OrgResource::collection($orgs);
     }
+
+    // public function my($id)
+    // {
+    //     $orgs = Org::with(['users'])->get();
+    //     foreach ($orgs as $org) {
+    //         foreach ($org->users as $user) {
+    //             if ($user->id == $id) return $org;
+    //         }
+    //     }
+
+    //     return OrgResource::make($org);
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -43,19 +56,18 @@ class OrgController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\org  $org
+     * @param  \App\Models\Org  $org
      * @return \Illuminate\Http\Response
      */
     public function show(Org $org)
     {
-        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\org  $org
+     * @param  \App\Models\Org  $org
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Org $org)
@@ -66,7 +78,7 @@ class OrgController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\org  $org
+     * @param  \App\Models\Org  $org
      * @return \Illuminate\Http\Response
      */
     public function destroy(org $org)
