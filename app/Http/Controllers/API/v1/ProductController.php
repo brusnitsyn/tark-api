@@ -1,8 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\v1;
 
+use App\Data\ProductData;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Product\ProductStoreRequest;
+use App\Http\Resources\Product\ProductResource;
 use App\Models\Product;
+use App\Services\ProductService;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -20,12 +25,16 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Product\ProductStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductStoreRequest $request, ProductService $service)
     {
-        //
+        $data = ProductData::fromRequest($request);
+
+        $product = $service->store($data);
+
+        return new ProductResource($product);
     }
 
     /**

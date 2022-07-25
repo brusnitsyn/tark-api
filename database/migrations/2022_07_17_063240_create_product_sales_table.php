@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('product_sales', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->dateTime('start');
-            $table->dateTime('end');
-            $table->string('old_price');
-            $table->string('price');
+            $table->dateTime('start')->nullable();
+            $table->dateTime('end')->nullable();
+            $table->decimal('old_price')->nullable();
+            $table->decimal('price');
             $table->boolean('is_infinite')->default(true);
             $table->timestamps();
         });

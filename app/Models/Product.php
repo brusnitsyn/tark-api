@@ -9,8 +9,18 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'article',
+        'manufacturer',
+        'machines',
+        'desc',
+        'pub_user_id',
+        'pub_org_id',
+    ];
+
     /**
-     * Получить все вложения продукта.
+     * Получить все вложения товара.
      */
     public function attachments()
     {

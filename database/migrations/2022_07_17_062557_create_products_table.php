@@ -18,10 +18,13 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('article')->nullable();
-            $table->foreignId('brand_id')->references('id')->on('product_brands')->onDelete('cascade');
+            $table->string('manufacturer')->nullable();
+            $table->string('machines')->nullable();
+            $table->json('desc')->nullable();
+            // $table->foreignId('brand_id')->references('id')->on('product_brands')->onDelete('cascade');
             $table->foreignId('pub_user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('pub_org_id')->references('id')->on('orgs')->onDelete('cascade');
-            $table->foreignId('category_id')->references('id')->on('product_categories')->onDelete('cascade');
+            // $table->foreignId('category_id')->references('id')->on('product_categories')->onDelete('cascade');
             $table->timestamps();
         });
     }

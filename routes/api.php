@@ -5,6 +5,7 @@ use App\Http\Controllers\API\v1\OrgController;
 use App\Http\Controllers\API\v1\OrgTypeController;
 use App\Http\Controllers\API\v1\OrgUserController;
 use App\Http\Controllers\API\v1\UserController;
+use App\Http\Controllers\API\v1\ProductController;
 use App\Http\Controllers\VerifyEmailController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -45,4 +46,5 @@ Route::apiResources([
     'users' => UserController::class,
     'org-types' => OrgTypeController::class,
     'org-users' => OrgUserController::class,
+    'product' => ProductController::class,
 ]);
