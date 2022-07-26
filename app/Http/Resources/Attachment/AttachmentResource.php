@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Product;
+namespace App\Http\Resources\Attachment;
 
-use App\Http\Resources\Attachment\AttachmentResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProductResource extends JsonResource
+class AttachmentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,11 +17,9 @@ class ProductResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'article' => $this->article,
-            'manufacturer' => $this->manufacturer,
-            'machines' => $this->machines,
-            'desc' => $this->desc,
-            'images' => AttachmentResource::collection($this->attachments),
+            'type' => $this->type,
+            'url' => $this->url,
+            'isPublished' => (bool)$this->is_published,
         ];
     }
 }
