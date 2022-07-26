@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Org extends Model
 {
-    use HasFactory;
+    use HasFactory, Searchable;
 
     protected $fillable = [
         'name',
@@ -47,5 +48,18 @@ class Org extends Model
     public function users()
     {
         return $this->hasManyThrough(User::class, OrgUser::class, 'org_id', 'id', 'id', 'user_id');
+    }
+
+    /**
+     * Поля по которым будет производиться поиск.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        return [
+            'name' => $this->name,
+            'inn' => $this->inn
+        ];
     }
 }

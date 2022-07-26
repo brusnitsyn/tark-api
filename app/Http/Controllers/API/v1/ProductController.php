@@ -6,6 +6,7 @@ use App\Data\ProductData;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\ProductStoreRequest;
 use App\Http\Resources\Product\ProductResource;
+use App\Models\OrgUser;
 use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
@@ -15,11 +16,16 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
+        if ($request->filled('search')) {
+            $products = Product::search($request->search)->get();
+        } else {
+            $products = Product::all();
+        }
         return ProductResource::collection($products);
     }
 
@@ -70,5 +76,13 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //
+    }
+
+    public function getProductByOrgId()
+    {
+        $user = Auth()->user();
+        $orgUser = OrgUser::where('user_id', $user->id)->first();
+        $products = Product::where('pub_org_id', $orgUser->org_id)->get();
+        return ProductResource::collection($products);
     }
 }

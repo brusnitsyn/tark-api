@@ -47,16 +47,18 @@ class ProductService
          *  Добавить изображения
          */
         if ($data->images) {
+            $host = request()->root();
             foreach ($data->images as $image) {
-                $imageName = uniqid() . '.webp';
-                $attachmentImage = new Attachment();
-                $attachmentImage->name = $imageName;
-                $attachmentImage->type = 'image/' . $image->extension();
-                $host = request()->root();
-                $attachmentImage->url = $host . '/storage/' . $attachmentImage->upload($image, 'public', 'products', $imageName);
-                // $attachmentImage->is_published = $image->is_published;
+                $uploadedImagePaths = $product->upload($image, 'public', 'products');
+                foreach ($uploadedImagePaths as $item) {
+                    $attachmentImage = new Attachment();
+                    $attachmentImage->name = $item->filename;
+                    $attachmentImage->type = $item->image->mime();
+                    $attachmentImage->url = $host . "/storage/" . $item->path;
+                    $attachmentImage->is_published = $image->is_published;
 
-                $product->attachments()->save($attachmentImage);
+                    $product->attachments()->save($attachmentImage);
+                }
             }
         }
 

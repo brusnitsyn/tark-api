@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\Uploadable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory, Searchable, Uploadable;
 
     protected $fillable = [
         'name',
@@ -25,5 +27,18 @@ class Product extends Model
     public function attachments()
     {
         return $this->morphMany('App\Models\Attachment', 'attachmentable');
+    }
+
+    /**
+     * Поля по которым будет производиться поиск.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        return [
+            'name' => $this->name,
+            'article' => $this->article
+        ];
     }
 }

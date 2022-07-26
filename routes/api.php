@@ -48,3 +48,5 @@ Route::apiResources([
     'org-users' => OrgUserController::class,
     'product' => ProductController::class,
 ]);
+
+Route::get('/products-org', [ProductController::class, 'getProductByOrgId']);
