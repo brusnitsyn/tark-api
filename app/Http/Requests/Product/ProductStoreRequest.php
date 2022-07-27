@@ -30,7 +30,7 @@ class ProductStoreRequest extends FormRequest
             'machines' => 'nullable|string|max:550',
             'desc' => 'nullable|json',
             'price' => 'required',
-            'images[]' => 'nullable|array|image'
+            'images[]' => 'nullable|array|image',
         ];
     }
 }

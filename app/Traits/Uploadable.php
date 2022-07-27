@@ -15,14 +15,23 @@ trait Uploadable
         $filename = uniqid();
         $images = [];
 
-        $prevImage = new stdClass();
-        $prevImage->image = ImageInt::make($file)->resize(144, 144, function ($constraint) {
+        $prevImage144 = new stdClass();
+        $prevImage144->image = ImageInt::make($file)->resize(144, 144, function ($constraint) {
             $constraint->aspectRatio();
             $constraint->upsize();
         })->encode('webp', 90);
-        $prevImage->filename = "prev_" . $filename . '.webp';
-        Storage::put($storage . '/' . $folder . '/thumbnails/144x144/' . $prevImage->filename, $prevImage->image->__toString());
-        $prevImage->path = $folder . '/thumbnails/144x144/' . $prevImage->filename;
+        $prevImage144->filename = "prev_" . $filename . '.webp';
+        Storage::put($storage . '/' . $folder . '/thumbnails/144x144/' . $prevImage144->filename, $prevImage144->image->__toString());
+        $prevImage144->path = $folder . '/thumbnails/144x144/' . $prevImage144->filename;
+
+        $prevImage512 = new stdClass();
+        $prevImage512->image = ImageInt::make($file)->resize(512, 512, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();
+        })->encode('webp', 90);
+        $prevImage512->filename = "prev_" . $filename . '.webp';
+        Storage::put($storage . '/' . $folder . '/thumbnails/512x512/' . $prevImage512->filename, $prevImage512->image->__toString());
+        $prevImage512->path = $folder . '/thumbnails/512x512/' . $prevImage512->filename;
 
         $originalImage = new stdClass();
         $originalImage->image = ImageInt::make($file)->resize(2000, 2000, function ($constraint) {
@@ -33,7 +42,8 @@ trait Uploadable
         Storage::put($storage . '/' . $folder . '/' . $originalImage->filename, $originalImage->image->__toString());
         $originalImage->path = $folder . '/' . $originalImage->filename;
 
-        array_push($images, $prevImage);
+        array_push($images, $prevImage144);
+        array_push($images, $prevImage512);
         array_push($images, $originalImage);
 
         return $images;

@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Product;
 
 use App\Http\Resources\Attachment\AttachmentResource;
+use App\Http\Resources\Media\MediaResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductResource extends JsonResource
@@ -22,7 +23,14 @@ class ProductResource extends JsonResource
             'manufacturer' => $this->manufacturer,
             'machines' => $this->machines,
             'desc' => $this->desc,
-            'images' => AttachmentResource::collection($this->attachments),
+            'thumb_url' => $this->getUrlCover(),
+            'images' => MediaResource::collection($this->getMedia('images')),
+            // 'images' => function () {
+            //     MediaResource::collection($this->getMedia('images'));
+            //     $images = [];
+
+            //     return $images;
+            // },
         ];
     }
 }

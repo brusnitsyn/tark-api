@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
-use App\Traits\Uploadable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Product extends Model
+class Product extends Model implements HasMedia
 {
-    use HasFactory, Searchable, Uploadable;
+    use HasFactory, Searchable, InteractsWithMedia;
 
     protected $fillable = [
         'name',
@@ -40,5 +42,27 @@ class Product extends Model
             'name' => $this->name,
             'article' => $this->article
         ];
+    }
+
+    public function getUrlCover()
+    {
+        return $this->getMedia('images')->first()->getUrl('thumb');
+    }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        // $this->addMediaConversion('thumb')
+        //     ->width(144)
+        //     ->height(144)
+        //     ->sharpen(1);
+
+        $this->addMediaConversion('thumb')
+            ->crop('crop-center', 144, 144)
+            ->sharpen(1);
+
+        // $this->addMediaConversion('512')
+        //     ->width(512)
+        //     ->height(512)
+        //     ->sharpen(10);
     }
 }
