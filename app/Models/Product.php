@@ -32,6 +32,14 @@ class Product extends Model implements HasMedia
     }
 
     /**
+     * Получить стоимость товара.
+     */
+    public function prices()
+    {
+        return $this->hasMany('App\Models\ProductSale', 'product_id', 'id');
+    }
+
+    /**
      * Поля по которым будет производиться поиск.
      *
      * @return array
@@ -48,6 +56,7 @@ class Product extends Model implements HasMedia
     {
         return $this->getMedia('images')->first()->getUrl('thumb');
     }
+
 
     public function registerMediaConversions(Media $media = null): void
     {

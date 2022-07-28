@@ -25,6 +25,7 @@ class ProductResource extends JsonResource
             'desc' => $this->desc,
             'thumb_url' => $this->getUrlCover(),
             'images' => MediaResource::collection($this->getMedia('images')),
+            'prices' => SaleResource::collection($this->prices),
             // 'images' => function () {
             //     MediaResource::collection($this->getMedia('images'));
             //     $images = [];
