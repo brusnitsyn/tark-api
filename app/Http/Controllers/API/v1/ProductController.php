@@ -75,7 +75,11 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $user = Auth()->user();
+        $orgUser = OrgUser::where('user_id', $user->id)->first();
+
+        if ($product->pub_user_id == $user->id || $product->pub_org_id == $orgUser->org_id)
+            $product->delete();
     }
 
     public function getProductByOrgId()
